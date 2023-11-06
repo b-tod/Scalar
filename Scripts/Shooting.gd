@@ -21,6 +21,8 @@ func shoot(dir):
 	bullet.start(player, dir)
 	can_shoot = false
 	
+	get_tree().get_root().get_child(0).find_node("Croshair").shoot(0.15) # 1.0 / player.shoot_speed)
+	
 	timer.set_wait_time(1.0 / player.shoot_speed)
 	timer.set_one_shot(true)
 	timer.start()
