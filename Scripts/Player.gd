@@ -21,6 +21,10 @@ func _process(delta):
 	
 	move_direction = move_direction.normalized()
 	position += move_direction * speed * delta
+	
+	#$Sprite.rotation_degrees = 0
+	look_at(position + move_direction)
+	#$Sprite.rotation_degrees += 90
 
 func _input(event):
 	pass
