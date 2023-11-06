@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Nodes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Images/space.png" type="Texture" id=2]
-[ext_resource path="res://Scripts/Moving.gd" type="Script" id=3]
-[ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/EnemyGenerator.gd" type="Script" id=3]
+[ext_resource path="res://Nodes/Enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Nodes/Asteroid.tscn" type="PackedScene" id=5]
 
 [node name="World" type="Node2D"]
 
@@ -13,12 +14,24 @@ texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 5000, 5000 )
 
+[node name="EnemyGenerator" type="Node2D" parent="."]
+script = ExtResource( 3 )
+enemy_path = ExtResource( 4 )
+
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 497, 293 )
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 733, 213 )
-texture = ExtResource( 4 )
+[node name="Asteroid" parent="." instance=ExtResource( 5 )]
+position = Vector2( 799, 141 )
 
-[node name="Node2D" type="Node2D" parent="Sprite"]
-script = ExtResource( 3 )
+[node name="Asteroid2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 744, 422 )
+
+[node name="Asteroid3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 233, 421 )
+
+[node name="Asteroid4" parent="." instance=ExtResource( 5 )]
+position = Vector2( 134, 153 )
+
+[node name="Asteroid5" parent="." instance=ExtResource( 5 )]
+position = Vector2( 225, 90 )
