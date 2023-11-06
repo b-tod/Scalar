@@ -1,0 +1,12 @@
+[gd_scene format=2]
+
+[node name="UI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="."]
+margin_left = 17.0
+margin_top = 14.0
+margin_right = 90.0
+margin_bottom = 28.0
+text = "UI text test"
