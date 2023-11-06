@@ -12,7 +12,9 @@ func _ready():
 
 func _process(delta):
 	if can_shoot and Input.is_mouse_button_pressed(BUTTON_LEFT):
-		shoot(global_position.direction_to(get_viewport().get_mouse_position()))
+		var direction = global_position.direction_to(get_viewport().get_mouse_position())
+		direction = direction.rotated(deg2rad(rand_range(-5, 5)))
+		shoot(direction)
 
 func shoot(dir):
 	var bullet = bullet_path.instance()
