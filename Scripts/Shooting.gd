@@ -14,13 +14,17 @@ func _process(delta):
 	if can_shoot and Input.is_mouse_button_pressed(BUTTON_LEFT):
 		var direction = global_position.direction_to(get_viewport().get_mouse_position())
 		direction = direction.rotated(deg2rad(rand_range(-5, 5)))
-		shoot(direction)
+		shoot(direction, false)
+	if can_shoot and Input.is_mouse_button_pressed(BUTTON_RIGHT):
+		var direction = global_position.direction_to(get_viewport().get_mouse_position())
+		direction = direction.rotated(deg2rad(rand_range(-5, 5)))
+		shoot(direction, true)
 
-func shoot(dir):
+func shoot(dir, funky):
 	var bullet = bullet_path.instance()
 	bullet.global_position = global_position
 	get_tree().get_root().get_child(0).find_node("World").add_child(bullet)
-	bullet.start(player, dir)
+	bullet.start(player, dir, funky)
 	can_shoot = false
 	
 	get_tree().get_root().get_child(0).find_node("Croshair").shoot(0.15) # 1.0 / player.shoot_speed)

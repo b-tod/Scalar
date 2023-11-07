@@ -6,12 +6,18 @@ var creator
 var direction
 var speed = 1000
 
-func start(creator, dir):
+var funky = false
+
+func start(creator, dir, funky):
 	self.creator = creator
 	direction = dir
+	self.funky = funky
 
 func _process(delta):
 	position += direction * speed * delta
+	
+	if funky:
+		direction = direction.rotated(deg2rad(rand_range(-30, 30)))
 
 func _on_Area2D_area_entered(area):
 	get_hitable(area)
