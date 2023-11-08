@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Hitable",
 "language": "GDScript",
 "path": "res://Scripts/Hitable.gd"
+}, {
+"base": "Node2D",
+"class": "PickUp",
+"language": "GDScript",
+"path": "res://Scripts/PickUp.gd"
 } ]
 _global_script_class_icons={
-"Hitable": ""
+"Hitable": "",
+"PickUp": ""
 }
 
 [application]
