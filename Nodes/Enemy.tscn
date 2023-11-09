@@ -31,3 +31,4 @@ main_node_path = NodePath("..")
 [node name="Loot" type="Node2D" parent="."]
 script = ExtResource( 5 )
 loot_path = ExtResource( 6 )
+drop_loot_on_death = true

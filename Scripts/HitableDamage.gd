@@ -3,11 +3,14 @@ extends Hitable
 var max_hp = 20
 var hp
 
+signal damage_received
+
 func _ready():
 	._ready()
 	hp = max_hp
 
 func hit():
+	emit_signal("damage_received")
 	var dmg = int(rand_range(1, 5))
 	hp -= dmg
 	

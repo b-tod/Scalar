@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Collision.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/HitableDamage.gd" type="Script" id=3]
+[ext_resource path="res://Nodes/PickUp.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Loot.gd" type="Script" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 35.1283
@@ -22,3 +24,9 @@ main_node_path = NodePath("../..")
 [node name="Hitable" type="Node2D" parent="."]
 script = ExtResource( 3 )
 main_node_path = NodePath("..")
+
+[node name="Loot" type="Node2D" parent="."]
+script = ExtResource( 5 )
+loot_path = ExtResource( 4 )
+drop_loot_on_death = true
+drop_loot_on_hit = true
