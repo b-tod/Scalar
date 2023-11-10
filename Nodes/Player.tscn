@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Images/simple_spaceship.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
@@ -8,9 +8,13 @@
 [ext_resource path="res://Scripts/Looking.gd" type="Script" id=6]
 [ext_resource path="res://Scripts/Hitable.gd" type="Script" id=7]
 [ext_resource path="res://Scripts/Collision.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/Collecting.gd" type="Script" id=9]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 31.305
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 17.0
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 2 )
@@ -40,3 +44,14 @@ script = ExtResource( 6 )
 [node name="Hitable" type="Node2D" parent="."]
 script = ExtResource( 7 )
 main_node_path = NodePath("..")
+
+[node name="Collecting" type="Node2D" parent="."]
+script = ExtResource( 9 )
+
+[node name="Area2D" type="Area2D" parent="Collecting"]
+scale = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collecting/Area2D"]
+shape = SubResource( 2 )
+
+[connection signal="area_entered" from="Collecting/Area2D" to="Collecting" method="_on_Area2D_area_entered"]
