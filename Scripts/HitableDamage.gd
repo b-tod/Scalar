@@ -1,25 +1,26 @@
 extends Hitable
 
-var max_hp = 20
-var hp
+signal on_damage_received
+signal on_destroyed
 
-signal damage_received
+onready var stats = $"../Stats"
+
+export var modulate_sprite = false
 
 func _ready():
 	._ready()
-	hp = max_hp
 
-func hit():
-	emit_signal("damage_received")
-	var dmg = int(rand_range(1, 5))
-	hp -= dmg
+func hit(dmg = 2):
+	emit_signal("on_damage_received")
+	stats.health -= dmg
 	
 	show_hit_label(dmg)
 	
-	if main_node.has_node("Sprite"):
+	if modulate_sprite and main_node.has_node("Sprite"):
 		var sprite = main_node.get_node("Sprite")
-		var color = (hp / float(max_hp))
+		var color = (stats.health / float(stats.max_health))
 		sprite.modulate = Color(color, color, color, 1)
 		
-	if hp <= 0:
+	if stats.health <= 0:
+		emit_signal("on_destroyed")
 		main_node.queue_free()

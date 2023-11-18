@@ -7,30 +7,31 @@ export var drop_loot_on_hit : bool
 
 onready var source = $".."
 onready var world = $"../../.."
+onready var stats = $"../Stats"
 
 var hitable = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	hitable = source.get_node("Hitable")
 	if drop_loot_on_hit:
-		hitable = source.get_node("Hitable")
-		hitable.connect("damage_received", self, "drop_loot")
+		hitable.connect("on_damage_received", self, "loot_hit")
+	if drop_loot_on_death:
+		hitable.connect("on_destroyed", self, "loot_dead")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+# TODO drop loot based on player/enemy stats
+func loot_hit():
+	drop_loot(0, 1)
+	
+func loot_dead():
+	drop_loot(1,4)
+	
 
-func _notification(what):
-	if (drop_loot_on_death and what == NOTIFICATION_PREDELETE):
-		drop_loot(1, 4)
-
-func drop_loot(min_drop = 0, max_drop = 1):
+func drop_loot(min_drop, max_drop):
 	var drops = min_drop + randi() % (max_drop - min_drop + 1)
-	print(drops)
 	for i in range(0, drops):
 		var loot = loot_path.instance()
 		# TODO Move this to PickUp constructor/init method
-		# Set position and direction
 		loot.global_position = source.global_position
 		
 		var direction : Vector2
@@ -40,10 +41,9 @@ func drop_loot(min_drop = 0, max_drop = 1):
 			direction = Vector2(rand_range(-1, 1), rand_range(-1, 1)).normalized()
 			
 		loot.direction = direction.rotated(rand_range(-PI/4, PI/4))
-		# Set velocity and rotation
-		# TODO consistent variable names for movement (speed or velocity, not both)
-		if "speed" in source:
-			loot.velocity = source.speed * rand_range(1/2, 3/2)
+		
+		if stats.speed:
+			loot.velocity = stats.speed * rand_range(1/2, 3/2)
 		else:
 			loot.velocity = rand_range(0, 30)
 		loot.spin = rand_range(-2*PI, 2*PI)

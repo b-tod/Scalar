@@ -1,14 +1,21 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Enemy.gd" type="Script" id=2]
-[ext_resource path="res://Scripts/HitableDie.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/HitableDamage.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/Collision.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/Loot.gd" type="Script" id=5]
 [ext_resource path="res://Nodes/PickUp.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/Stats.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/Sensor.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/ShootingEnemy.gd" type="Script" id=9]
+[ext_resource path="res://Nodes/Bullet.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 17.0294
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 121.017
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource( 2 )
@@ -32,3 +39,27 @@ main_node_path = NodePath("..")
 script = ExtResource( 5 )
 loot_path = ExtResource( 6 )
 drop_loot_on_death = true
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource( 7 )
+health = 10
+damage = 5
+speed = 100
+attack_speed = 3
+attack_range = 200
+
+[node name="Sensor" type="Node2D" parent="."]
+script = ExtResource( 8 )
+
+[node name="Area2D" type="Area2D" parent="Sensor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor/Area2D"]
+position = Vector2( 0, -40 )
+shape = SubResource( 2 )
+
+[node name="Shooting" type="Node2D" parent="."]
+script = ExtResource( 9 )
+bullet_path = ExtResource( 10 )
+
+[connection signal="fire_weapons" from="." to="Shooting" method="_on_Enemy_fire_weapons"]
+[connection signal="body_entered" from="Sensor/Area2D" to="Sensor" method="_on_Area2D_body_entered"]

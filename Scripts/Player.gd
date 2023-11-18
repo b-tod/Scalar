@@ -1,9 +1,5 @@
 extends Node2D
-
-export var speed = 500
-export var shoot_speed = 8 # per second
-
-var scrap = 0
+class_name Player
 
 func _ready():
 	pass

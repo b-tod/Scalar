@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Nodes/Croshair.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/PlayerStatsDisplay.gd" type="Script" id=2]
 
 [node name="UI" type="Control"]
 anchor_right = 1.0
@@ -9,9 +10,35 @@ anchor_bottom = 1.0
 [node name="Croshair" parent="." instance=ExtResource( 1 )]
 position = Vector2( 507, 282 )
 
-[node name="Label" type="Label" parent="."]
+[node name="PlayerStats" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="LabelHP" type="Label" parent="PlayerStats"]
 margin_left = 17.0
 margin_top = 14.0
-margin_right = 90.0
-margin_bottom = 28.0
-text = "UI text test"
+margin_right = 49.0
+margin_bottom = 45.0
+text = "HP:
+"
+
+[node name="LabelHPValue" type="Label" parent="PlayerStats"]
+margin_left = 77.0
+margin_top = 14.0
+margin_right = 117.0
+margin_bottom = 45.0
+text = "500"
+
+[node name="LabelScrap" type="Label" parent="PlayerStats"]
+margin_left = 17.0
+margin_top = 34.0
+margin_right = 49.0
+margin_bottom = 65.0
+text = "Scrap:
+"
+
+[node name="LabelScrapValue" type="Label" parent="PlayerStats"]
+margin_left = 77.0
+margin_top = 34.0
+margin_right = 117.0
+margin_bottom = 65.0
+text = "0"

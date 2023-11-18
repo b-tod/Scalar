@@ -5,6 +5,7 @@ export (Resource) var collision_script
 var creator
 var direction
 var speed = 1000
+var damage = 3
 
 var funky = false
 
@@ -30,5 +31,5 @@ func get_hitable(collider):
 	if shape.has_method("get_main_node"):
 		var main_node = shape.get_main_node()
 		if main_node != null and main_node != creator and main_node.has_node("Hitable"):
-			main_node.get_node("Hitable").hit()
+			main_node.get_node("Hitable").hit(damage)
 			queue_free()

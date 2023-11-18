@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var player = $".."
+onready var stats = $"../Stats"
 var move_direction : Vector2
 
 func _ready():
@@ -19,4 +20,4 @@ func _process(delta):
 		move_direction += Vector2(1, 0)
 	
 	move_direction = move_direction.normalized()
-	player.position += move_direction * player.speed * delta
+	player.position += move_direction * stats.speed * delta
